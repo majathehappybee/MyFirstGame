@@ -123,14 +123,21 @@ class Play {
     }
 
     addEnemy() {
-
         let enemy = this.enemies.create(250, -10, 'enemy');
         enemy.body.gravity.y = 500;
         enemy.body.velocity.x = Phaser.Math.RND.pick([-100, 100]);
+        if (enemy.body.velocity.x < 0) {
+            enemy.flipX = true
+        }
+        else {
+            enemy.flipX = false
+        }
+        
         enemy.body.bounce.x = 1;
         
         this.time.addEvent({
             delay: 10000,
+
             callback: () => enemy.destroy(),
         });
     }

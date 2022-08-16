@@ -2,7 +2,7 @@ class Load {
     preload() {
         this.load.image('background', 'assets/background.png');
         this.load.image('player', 'assets/pickle.png');
-        this.load.image('player2', 'assets/pickle2.png');
+        //this.load.image('player2', 'assets/pickle2.png');
         this.load.image('coin', 'assets/cookie.png');
         this.load.image('enemy', 'assets/evilKitty.png');
         this.load.image('wallV', 'assets/wallVertical.png');
