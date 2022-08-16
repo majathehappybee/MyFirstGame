@@ -2,6 +2,7 @@
 class Play {
 
     create() {
+        
         this.player = this.physics.add.sprite(250, 170, 'player');
         this.player.body.gravity.y = 500;
         
@@ -19,10 +20,22 @@ class Play {
             delay: 2200,
             callback: () => this.addEnemy(),
             loop: true,
+        
         });
+        
+      /*  this.bullets =  this.physics.add.group();
+        this.time.addEvent({
+            delay: 500,
+            callback: () => this.shootBullet(),
+            loop: true, 
+        }); */
+
     }
 
     update() {
+
+        //this.input.keyboard.on('keydown_S', () => this.shootBullet());
+
         this.physics.collide(this.player, this.walls);
         this.physics.collide(this.enemies, this.walls);
         if (!this.player.active) {
@@ -46,20 +59,25 @@ class Play {
 
         if (this.arrow.left.isDown) {
             this.player.body.velocity.x = -200;
+            this.player.flipX = false
         }
         else if (this.arrow.right.isDown) {
             this.player.body.velocity.x = 200;
+            this.player.flipX = true
         }
         else {
             this.player.body.velocity.x = 0;
         }
 
-        // console.log("UP:   ", this.player.body.velocity.y);
 
         if (this.arrow.up.isDown && this.player.body.onFloor()) {
-            // debugger;
+           
             this.player.body.velocity.y = -320;
         }
+    /* if (this.arrow.down.isDown) {
+      this.shootBullet();
+        } */
+       
 
     }
 
@@ -79,6 +97,8 @@ class Play {
     }
 
     playerDie() {
+       console.log("ddd");
+       
         this.scene.start('menu', { score: this.score })
     }
 
@@ -104,8 +124,6 @@ class Play {
 
     addEnemy() {
 
-        // console.log("addEnemy: this=", this);
-
         let enemy = this.enemies.create(250, -10, 'enemy');
         enemy.body.gravity.y = 500;
         enemy.body.velocity.x = Phaser.Math.RND.pick([-100, 100]);
@@ -116,6 +134,23 @@ class Play {
             callback: () => enemy.destroy(),
         });
     }
+
+    shootBullet() {
+      
+      console.log("ff");
+      /*  let bullet = this.bullets.create(this.player.body.position, 'bullet');
+        bullet.body.gravity.y = 0;
+        bullet.body.velocity = this.player.body.velocity;
+
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => bullet.destroy(),
+        });
+*/
+
+/* this.bullets.create(100,100);
+this.bullets.velocity.x = Phaser.Math.RND.pick([-100, 100]); */
 }
 
 
+}
