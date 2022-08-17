@@ -26,6 +26,20 @@ class Play {
             loop: true,
         
         });
+
+        this.anims.create( {
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('player', {frames: [1, 2]}),
+            frameRate: 8,
+            repeat: -1,
+        });
+
+        this.anims.create( {
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('player', {frames: [3, 4]}),
+            frameRate: 8,
+            repeat: -1,
+        });
         
       /*  this.bullets =  this.physics.add.group();
         this.time.addEvent({
@@ -63,14 +77,17 @@ class Play {
 
         if (this.arrow.left.isDown) {
             this.player.body.velocity.x = -200;
-            this.player.flipX = false
+            //this.player.flipX = false
+            this.player.anims.play('left', true);
         }
         else if (this.arrow.right.isDown) {
             this.player.body.velocity.x = 200;
-            this.player.flipX = true
+            //this.player.flipX = true
+            this.player.anims.play('right', true)
         }
         else {
             this.player.body.velocity.x = 0;
+            this.player.setFrame(0);
         }
 
 
