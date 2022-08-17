@@ -7,6 +7,9 @@ class Load {
         this.load.image('enemy', 'assets/evilKitty.png');
         this.load.image('wallV', 'assets/wallVertical.png');
         this.load.image('wallH', 'assets/wallHorizontal.png');
+        this.load.audio('jump', ['assets/jump.ogg', 'assets/jump.mp3']);
+        this.load.audio('coin', ['assets/coin.ogg', 'assets/coin.mp3']);
+        this.load.audio('dead', ['assets/dead.ogg', 'assets/dead.mp3']);
       //  this.load.image('bullet', 'assets/bullet.png');
        // this.load.image('bullet','assets/bullet.png');
 

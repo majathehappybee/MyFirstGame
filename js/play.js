@@ -14,6 +14,10 @@ class Play {
         
         this.scoreLabel = this.add.text(30, 25, 'score: 0', { font: '18px Arial', fill: '#fff' });
         this.score = 0;
+
+        this.jumpSound = this.sound.add('jump');
+        this.coinSound = this.sound.add('coin');
+        this.deadSound = this.sound.add('dead');
         
         this.enemies = this.physics.add.group();
         this.time.addEvent({
@@ -73,9 +77,10 @@ class Play {
         if (this.arrow.up.isDown && this.player.body.onFloor()) {
            
             this.player.body.velocity.y = -320;
+            this.jumpSound.play();
         }
-    /* if (this.arrow.down.isDown) {
-      this.shootBullet();
+        /* if (this.arrow.down.isDown) {
+        this.shootBullet();
         } */
        
 
@@ -99,13 +104,15 @@ class Play {
     playerDie() {
        console.log("ddd");
        
-        this.scene.start('menu', { score: this.score })
+        this.scene.start('menu', { score: this.score });
+        this.deadSound.play();
     }
 
     takeCoin() {
         this.score += 5;
         this.scoreLabel.setText('score: ' + this.score);
         this.updateCoinPosition();
+        this.coinSound.play();
     }
 
     updateCoinPosition() {
@@ -142,7 +149,16 @@ class Play {
         });
     }
 
-    shootBullet() {
+    playSound() {
+        this.jumpSound.play();
+        this.coinSound.play();
+        this.deadSound.play()
+    }
+
+    
+    
+
+    /*shootBullet() {
       
       console.log("ff");
       /*  let bullet = this.bullets.create(this.player.body.position, 'bullet');
@@ -153,11 +169,12 @@ class Play {
             delay: 1000,
             callback: () => bullet.destroy(),
         });
-*/
 
-/* this.bullets.create(100,100);
-this.bullets.velocity.x = Phaser.Math.RND.pick([-100, 100]); */
+
+        this.bullets.create(100,100);
+        this.bullets.velocity.x = Phaser.Math.RND.pick([-100, 100]); 
+    } */
 }
 
 
-}
+
