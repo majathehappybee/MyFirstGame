@@ -27,6 +27,8 @@ class Play {
         
         });
 
+        this.bullets = this.physics.add.group();
+
         this.anims.create( {
             key: 'right',
             frames: this.anims.generateFrameNumbers('player', {frames: [1, 2]}),
@@ -51,7 +53,7 @@ class Play {
     }
 
     update() {
-
+        let k;
         //this.input.keyboard.on('keydown_S', () => this.shootBullet());
 
         this.physics.collide(this.player, this.walls);
@@ -60,30 +62,45 @@ class Play {
             return;
         }
         
-        this.movePlayer();
+        this.movePlayer(k);
         if (this.player.y > 340 || this.player.y < 0) {
+            this.playerDie();
+        }
+        else  if (this.physics.overlap(this.player, this.enemies)) {
+            console.log("die2");
             this.playerDie();
         }
         if (this.physics.overlap(this.player, this.coin)) {
             this.takeCoin()
         }
+      
         
-        if (this.physics.overlap(this.player, this.enemies)) {
-            this.playerDie();
+        if (this.physics.overlap(this.enemies, this.bullets)) {
+            console.log("wds");
+            this.enemyDie();
+ 
         }
     }
 
-    movePlayer() {
+    enemyDie(){
+        callback: () => enemy.destroy;
+    }
+
+
+
+    movePlayer(k) {
 
         if (this.arrow.left.isDown) {
             this.player.body.velocity.x = -200;
             //this.player.flipX = false
             this.player.anims.play('left', true);
+            k = -400;
         }
         else if (this.arrow.right.isDown) {
             this.player.body.velocity.x = 200;
             //this.player.flipX = true
-            this.player.anims.play('right', true)
+            this.player.anims.play('right', true);
+            k = 400
         }
         else {
             this.player.body.velocity.x = 0;
@@ -95,6 +112,14 @@ class Play {
            
             this.player.body.velocity.y = -320;
             this.jumpSound.play();
+        }
+
+        if (this.arrow.down.isDown) 
+        {
+           if ( this.arrow.left.isDown || this.arrow.right.isDown){
+            console.log("foo");
+            this.shootBullet(k);
+           }
         }
         /* if (this.arrow.down.isDown) {
         this.shootBullet();
@@ -172,25 +197,18 @@ class Play {
         this.deadSound.play()
     }
 
+    shootBullet(k) {
+        let bulletPos = this.player.body.position;
+        let bullet = this.bullets.create(bulletPos.x, bulletPos.y, 'bullet');
+        console.log(k);
+
+        bullet.body.velocity.x = k;
+    }
+
     
     
 
-    /*shootBullet() {
-      
-      console.log("ff");
-      /*  let bullet = this.bullets.create(this.player.body.position, 'bullet');
-        bullet.body.gravity.y = 0;
-        bullet.body.velocity = this.player.body.velocity;
-
-        this.time.addEvent({
-            delay: 1000,
-            callback: () => bullet.destroy(),
-        });
-
-
-        this.bullets.create(100,100);
-        this.bullets.velocity.x = Phaser.Math.RND.pick([-100, 100]); 
-    } */
+ 
 }
 
 

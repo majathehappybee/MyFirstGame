@@ -14,6 +14,7 @@ class Load {
         this.load.audio('jump', ['assets/jump.ogg', 'assets/jump.mp3']);
         this.load.audio('coin', ['assets/coin.ogg', 'assets/coin.mp3']);
         this.load.audio('dead', ['assets/dead.ogg', 'assets/dead.mp3']);
+        this.load.image('bullet', 'assets/bullet2.png');
       //  this.load.image('bullet', 'assets/bullet.png');
        // this.load.image('bullet','assets/bullet.png');
 
